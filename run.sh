@@ -7,6 +7,8 @@ function echogrey() {
 }
 
 function template() {
+  local year="$1"
+  local day="$2"
 	cat <<EOF
 package main
 
@@ -15,7 +17,7 @@ import (
 )
 
 func main() {
-	fileContent, err := os.ReadFile("input-user.txt")
+	fileContent, err := os.ReadFile("./$year/$day/input-example.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -52,7 +54,7 @@ if [ ! -d "$DIR" ]; then
 	echogrey "Created directory $DIR"
 fi
 if [ ! -f "$DIR/code.go" ]; then
-	template >"$DIR/code.go"
+	template "$YEAR" "$DAY" >"$DIR/code.go"
 	echogrey "Created file code.go"
 fi
 # go run
